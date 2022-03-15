@@ -67,6 +67,13 @@ exports.postAUser = async (req, res, next) => {
   const IsManager = req.body.IsManager;
   const IsSalesmen = req.body.IsSalesmen;
 
+
+  for (const iterator of object) {
+
+    
+  }
+  
+
   try {
     const pool = await poolPromise;
     const result = await pool

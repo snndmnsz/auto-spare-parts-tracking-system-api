@@ -16,6 +16,22 @@ exports.getActiveOrders = async (req, res, next) => {
   }
 };
 
+exports.getAllOrderIds = async (req, res, next) => {
+  try {
+    const pool = await poolPromise;
+    const result = await pool
+      .request()
+      .query(
+        "SELECT OrderId FROM orders"
+      );
+
+    res.status(201).json(result.recordset);
+  } catch (err) {
+    res.status(500);
+    res.send(err.message);
+  }
+};
+
 exports.findPartsInOrder = async (req, res, next) => {
   const orderId = req.params.id;
 

@@ -5,6 +5,8 @@ const partController = require("../controllers/part");
 
 router.get("/part/:id",partController.getAPart);
 
+router.get("/part-id",partController.getAllPartIds);
+
 router.post("/part/post",partController.postAPart);
 
 router.post("/part/post",partController.createAPart);

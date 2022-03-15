@@ -4,6 +4,8 @@ const systemController = require("../controllers/system");
 
 router.get("/parts", systemController.getAllParts);
 
+router.get("/currency", systemController.getCurrency);
+
 router.get("/brand/:id", systemController.getBrandById);
 
 router.get("/storage/:barcode", systemController.getPartsInStoragebyID);
@@ -21,6 +23,8 @@ router.post("/payment/post", systemController.createAPayment);
 router.delete("/payment/delete", systemController.deleteAPayment);
 
 router.get("/bills", systemController.getBills);
+
+router.get("/invoice/:id", systemController.getInvoice);
 
 router.post("/bill/post", systemController.createABill);
 

@@ -10,6 +10,8 @@ router.post("/storage/post/parts-in-orders",orderController.postPartsInToOrder);
 
 router.get("/active-orders",orderController.getActiveOrders);
 
+router.get("/order-id",orderController.getAllOrderIds);
+
 router.get("/order-find-parts/:id",orderController.findPartsInOrder);
 
 router.post("/order/deliver",orderController.postDeliverOrder);

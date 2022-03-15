@@ -12,6 +12,18 @@ exports.getAllParts = async (req, res, next) => {
   }
 };
 
+exports.getCurrency = async (req, res, next) => {
+  try {
+    const pool = await poolPromise;
+    const result = await pool.request().query("SELECT * FROM currency");
+
+    res.status(201).json(result.recordset);
+  } catch (err) {
+    res.status(500);
+    res.send(err.message);
+  }
+};
+
 exports.getBrandById = async (req, res, next) => {
   const brandID = req.params.id;
   try {
@@ -62,6 +74,23 @@ exports.getBills = async (req, res, next) => {
     const pool = await poolPromise;
     const result = await pool.request().query(`SELECT * FROM Bill
     order by PaymentID`);
+
+    res.status(201).json(result.recordset);
+  } catch (err) {
+    res.status(500);
+    res.send(err.message);
+  }
+};
+
+exports.getInvoice = async (req, res, next) => {
+  const BillID = req.params.id;
+  try {
+    const pool = await poolPromise;
+    const result = await pool.request()
+      .query(`select  b.BillID, b.PaymentID, b.Name + ' ' +  b.Surname FullName, b.TotalCost, b.PaymentDate ,p.CustomerID,
+    pio.OrderID, pio.PartID, pio.Quantity, pio.ActualSalesPrice,pt.Price,pt.PartName
+from Bill b inner join Payment p on p.PaymentID=b.PaymentID right join PartsInOrders pio on pio.OrderID=p.OrderID left join Part pt on pt.PartID=pio.PartID
+where b.BillID='${BillID}'`);
 
     res.status(201).json(result.recordset);
   } catch (err) {

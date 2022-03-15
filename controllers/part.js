@@ -16,6 +16,20 @@ exports.getAPart = async (req, res, next) => {
   }
 };
 
+exports.getAllPartIds = async (req, res, next) => {
+  try {
+    const pool = await poolPromise;
+    const result = await pool
+      .request()
+      .query(`SELECT p.PartID FROM Part p`);
+
+    res.status(201).json(result.recordset);
+  } catch (err) {
+    res.status(500);
+    res.send(err.message);
+  }
+};
+
 exports.postAPart = async (req, res, next) => {
   const PartID = req.body.PartID;
   const PartName = req.body.PartName;
